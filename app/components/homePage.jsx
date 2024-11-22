@@ -57,24 +57,38 @@ export default function HomePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
-            <div className="bg-white p-8 rounded-xl shadow-2xl max-w-2xl w-full space-y-6">
-                <h1 className="text-3xl font-bold text-center text-blue-600 mb-4">AskYouTube</h1>
+        <div className="min-h-screen bg-black flex items-center justify-center p-4 text-white">
+            <div className="bg-dark border border-dark-secondary rounded-2xl shadow-2xl max-w-2xl w-full p-8 space-y-6">
+                <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-primary-start to-primary-end bg-clip-text text-transparent mb-6">
+                    AskYoutube
+                </h1>
                 
                 {stage === 'input' && (
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <textarea
-                            value={urls}
-                            onChange={(e) => setUrls(e.target.value)}
-                            className="w-full p-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Enter YouTube URLs (one per line)"
-                            rows={5}
-                            required
-                        ></textarea>
+                        <div className="relative">
+                            <textarea
+                                value={urls}
+                                onChange={(e) => setUrls(e.target.value)}
+                                className="w-full p-4 bg-dark-secondary border border-dark-secondary rounded-xl text-white 
+                                focus:outline-none focus:ring-2 focus:ring-primary-start 
+                                transition duration-300 placeholder-gray-500"
+                                placeholder="Paste YouTube URLs (one per line)"
+                                rows={5}
+                                required
+                            ></textarea>
+                            <div className="absolute top-2 right-2 text-xs text-gray-400 opacity-70">
+                                {urls.split('\n').filter(url => url.trim() !== '').length} URLs
+                            </div>
+                        </div>
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+                            className="w-full bg-gradient-to-r from-primary-start to-primary-end 
+                            text-white py-4 rounded-xl 
+                            hover:from-primary-start/80 hover:to-primary-end/80 
+                            transition duration-300 ease-in-out 
+                            transform hover:scale-[1.02] 
+                            disabled:opacity-50"
                         >
                             {loading ? "Analyzing Videos..." : "Analyze Videos"}
                         </button>
@@ -82,28 +96,41 @@ export default function HomePage() {
                 )}
 
                 {stage === 'analysis' && (
-                    <div>
+                    <div className="space-y-4">
                         <form onSubmit={handleQuestionSubmit} className="space-y-4">
-                            <input
-                                type="text"
-                                value={question}
-                                onChange={(e) => setQuestion(e.target.value)}
-                                className="w-full p-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Ask a question about the videos"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={question}
+                                    onChange={(e) => setQuestion(e.target.value)}
+                                    className="w-full p-4 bg-dark-secondary border border-dark-secondary 
+                                    rounded-xl text-white 
+                                    focus:outline-none focus:ring-2 focus:ring-secondary-start 
+                                    transition duration-300 placeholder-gray-500"
+                                    placeholder="Ask a question about the videos"
+                                    required
+                                />
+                            </div>
                             <div className="flex space-x-4">
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="flex-grow bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition duration-300 ease-in-out"
+                                    className="flex-grow bg-gradient-to-r from-secondary-start to-secondary-end 
+                                    text-white py-4 rounded-xl 
+                                    hover:from-secondary-start/80 hover:to-secondary-end/80 
+                                    transition duration-300 ease-in-out 
+                                    transform hover:scale-[1.02] 
+                                    disabled:opacity-50"
                                 >
-                                    {loading ? "Getting Answer..." : "Ask Question"}
+                                    {loading ? "Generating Answer..." : "Ask Question"}
                                 </button>
                                 <button
                                     type="button"
                                     onClick={resetAnalysis}
-                                    className="bg-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-400 transition duration-300 ease-in-out"
+                                    className="bg-dark-secondary text-dark-secondary 
+                                    py-4 px-6 rounded-xl 
+                                    hover:bg-dark-tertiary 
+                                    transition duration-300 ease-in-out"
                                 >
                                     Reset
                                 </button>
@@ -113,21 +140,30 @@ export default function HomePage() {
                 )}
 
                 {stage === 'query' && (
-                    <div>
-                        <div className="bg-green-50 p-4 rounded-lg mb-4">
-                            <h2 className="text-lg font-semibold text-green-700 mb-2">AI Response:</h2>
-                            <p className="text-gray-700">{questionResponse}</p>
+                    <div className="space-y-4">
+                        <div className="bg-dark-secondary p-6 rounded-xl border border-dark-secondary">
+                            <h2 className="text-xl font-semibold bg-gradient-to-r from-secondary-start to-secondary-end bg-clip-text text-transparent mb-3">
+                                AI Response
+                            </h2>
+                            <p className="text-dark-secondary">{questionResponse}</p>
                         </div>
                         <div className="flex space-x-4">
                             <button
                                 onClick={() => setStage('analysis')}
-                                className="flex-grow bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+                                className="flex-grow bg-gradient-to-r from-primary-start to-primary-end 
+                                text-white py-4 rounded-xl 
+                                hover:from-primary-start/80 hover:to-primary-end/80 
+                                transition duration-300 ease-in-out 
+                                transform hover:scale-[1.02]"
                             >
                                 Ask Another Question
                             </button>
                             <button
                                 onClick={resetAnalysis}
-                                className="bg-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-400 transition duration-300 ease-in-out"
+                                className="bg-dark-secondary text-dark-secondary 
+                                py-4 px-6 rounded-xl 
+                                hover:bg-dark-tertiary 
+                                transition duration-300 ease-in-out"
                             >
                                 New Analysis
                             </button>
