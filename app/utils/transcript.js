@@ -4,6 +4,7 @@ import { YoutubeTranscript } from 'youtube-transcript';
 
 export const fetchTranscript = async (url) => {
     let videoId;
+    console.log(url);
 
     if (url.includes("youtu.be")) {
         videoId = url.split("/").pop().split("?")[0];
