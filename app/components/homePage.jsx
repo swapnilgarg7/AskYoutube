@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { fetchTranscript } from "@/app/utils/transcript";
-import { analyzeContent, askQuestion } from "@/app/utils/openai";
 
-export default function HomePage() {
+export default function HomePage({fetchTranscript, analyzeContent, askQuestion}) {
     const [urls, setUrls] = useState("");
     const [knowledgeBase, setKnowledgeBase] = useState("");
     const [analysisResponse, setAnalysisResponse] = useState("");
