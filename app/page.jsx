@@ -1,8 +1,8 @@
 import HomePage from "./components/homePage";
 import './globals.css';
 
-import { fetchTranscript } from "@/app/utils/transcript";
-import { analyzeContent, askQuestion } from "@/app/utils/openai";
+import { fetchTranscript } from "./utils/transcript";
+import { analyzeContent, askQuestion } from "./utils/openai";
 
 export default function Home() {
 
