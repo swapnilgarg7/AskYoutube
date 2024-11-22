@@ -1,6 +1,7 @@
 "use server"
 
 import { YoutubeTranscript } from 'youtube-transcript';
+import Transcriptor from 'youtube-video-transcript';
 
 export const fetchTranscript = async (url) => {
     let videoId;
@@ -16,7 +17,9 @@ export const fetchTranscript = async (url) => {
     }
 
     if (!videoId) throw new Error("Video ID could not be extracted");
-    const transcript = await YoutubeTranscript.fetchTranscript(videoId);
-    console.log(transcript);
-    return transcript.map((entry) => entry.text).join(" ");
+    //const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+    const response = await Transcriptor.getTranscript(videoId);
+    const transcript = response[0].data.reduce((acc, curr) => acc + curr.text, "");
+    console.log("ts: ", transcript);
+    return transcript;
 };
