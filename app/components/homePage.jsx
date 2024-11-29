@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from 'react-markdown';
 
 export default function HomePage({fetchTranscript, analyzeContent, askQuestion}) {
     const [urls, setUrls] = useState("");
@@ -143,7 +144,21 @@ export default function HomePage({fetchTranscript, analyzeContent, askQuestion})
                             <h2 className="text-xl font-semibold bg-gradient-to-r from-secondary-start to-secondary-end bg-clip-text text-transparent mb-3">
                                 AI Response
                             </h2>
-                            <p className="text-dark-secondary">{questionResponse}</p>
+                            <div className="prose prose-invert max-w-full">
+                                <ReactMarkdown 
+                                    components={{
+                                        h1: ({node, ...props}) => <h1 className="text-2xl font-bold mb-4" {...props} />,
+                                        h2: ({node, ...props}) => <h2 className="text-xl font-semibold mb-3" {...props} />,
+                                        h3: ({node, ...props}) => <h3 className="text-lg font-medium mb-2" {...props} />,
+                                        ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-4" {...props} />,
+                                        ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-4" {...props} />,
+                                        p: ({node, ...props}) => <p className="mb-4" {...props} />,
+                                        a: ({node, ...props}) => <a className="text-blue-400 hover:underline" {...props} />
+                                    }}
+                                >
+                                    {questionResponse}
+                                </ReactMarkdown>
+                            </div>
                         </div>
                         <div className="flex space-x-4">
                             <button
